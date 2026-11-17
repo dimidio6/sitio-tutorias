@@ -18,12 +18,19 @@ Todo el contenido está en `src/data/`:
 
 | Archivo | Contenido |
 | --- | --- |
-| `sitio.json` | Título, menú, textos del hero y de cada sección, datos de contacto y pie |
+| `sitio.json` | Título, menú, textos del hero y de cada sección, imagen de horarios, datos de contacto y pie |
 | `tutores.json` | Nombre, carrera y correo de cada tutor, en el orden en que se muestran |
 | `coordinadores.json` | Nombre y foto de cada coordinador |
 | `faqs.json` | Preguntas frecuentes, en el orden en que se muestran |
 
-Las imágenes van en `src/assets/` y se referencian por su ruta dentro de esa carpeta. Por ejemplo, para ponerle foto a un tutor, guardá la imagen en `src/assets/personas/` y agregá:
+Las imágenes van en `src/assets/` y se referencian por su ruta dentro de esa carpeta:
+
+- `logos/`: logos de la universidad.
+- `carrusel/`: fotos de la banda del inicio (se eligen en `hero.imagenes` de `sitio.json`, con su leyenda y su `foco`).
+- `personas/`: fotos de tutores y coordinadores.
+- `horarios.jpeg`: la grilla de horarios.
+
+Las fotos que están en una carpeta pero no se nombran en los JSON no se muestran en la página (el build igual las copia a `dist/`, pero los visitantes no las descargan). Por ejemplo, para ponerle foto a un tutor, guardá la imagen en `src/assets/personas/` y agregá:
 
 ```json
 {
@@ -35,6 +42,10 @@ Las imágenes van en `src/assets/` y se referencian por su ruta dentro de esa ca
 ```
 
 Sin `foto` se muestra la inicial del nombre. Si un `archivo` no existe, el build falla indicando cuál falta.
+
+## Horarios de los tutores
+
+Los horarios se muestran como una imagen (`src/assets/horarios.jpeg`). Para actualizarlos cada cuatrimestre, reemplazá ese archivo por la nueva grilla con el mismo nombre, o cambiá `horarios.imagen.archivo` en `sitio.json`. Actualizá también el `alt` si cambia el cuatrimestre.
 
 ## Formulario de contacto
 

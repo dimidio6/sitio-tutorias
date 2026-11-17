@@ -16,6 +16,8 @@ const { title, description = sitio.bajada, image = "/og-default.jpg" } =
 const siteTitle = sitio.titulo;
 const siteTagline = sitio.bajada;
 const siteLogo = sitio.logo;
+// "Facultad de Ingeniería · UNPSJB": el separador nunca queda solo al cortar la línea.
+const taglineSinCortes = siteTagline.replace(/ · /g, "\u00a0·\u00a0");
 const fullTitle = title === siteTitle ? `${siteTitle} | ${siteTagline}` : `${title} — ${siteTitle}`;
 
 // Las URLs absolutas solo se pueden armar si `site` está definido en astro.config.mjs
@@ -49,7 +51,7 @@ const ogImage = Astro.site ? new URL(image, Astro.site).href : image;
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
 			rel="stylesheet"
 		/>
 		<title>{fullTitle}</title>
@@ -83,7 +85,7 @@ const ogImage = Astro.site ? new URL(image, Astro.site).href : image;
 					}
 					<span class="brand-text">
 						<span class="line-1">{siteTitle}</span>
-						<span class="line-2">{siteTagline}</span>
+						<span class="line-2">{taglineSinCortes}</span>
 					</span>
 				</a>
 
@@ -160,22 +162,38 @@ const ogImage = Astro.site ? new URL(image, Astro.site).href : image;
 					}
 					<div>
 						<p class="footer-title">{siteTitle}</p>
-						<p class="footer-text">{siteTagline}</p>
+						<p class="footer-text">{taglineSinCortes}</p>
 					</div>
 				</div>
 
-				<nav class="footer-links" aria-label="Enlaces del pie de página">
-					{
-						sitio.menu.map((item) => (
-							<a href={item.url}>{item.texto}</a>
-						))
-					}
-				</nav>
+				<ul class="footer-contacto" aria-label="Contacto del Sistema de Tutorías">
+					{sitio.contacto.ubicacion && (
+						<li>
+							{sitio.contacto.ubicacion}
+							{sitio.contacto.ciudad && <span>{sitio.contacto.ciudad}</span>}
+						</li>
+					)}
+					{sitio.contacto.email && (
+						<li>
+							<a href={`mailto:${sitio.contacto.email}`}>{sitio.contacto.email}</a>
+						</li>
+					)}
+				</ul>
 			</div>
 
 			<div class="footer-bottom">
 				<p>© {new Date().getFullYear()} {sitio.pie}</p>
-				<p>Tutorías gratuitas para estudiantes de la Facultad de Ingeniería.</p>
+				<p>
+					Tutorías gratuitas para estudiantes de la Facultad de Ingeniería
+					{sitio.credito && (
+						<span class="footer-credito">
+							{" · "}
+							<a href={sitio.credito.url} target="_blank" rel="noopener">
+								{sitio.credito.texto}
+							</a>
+						</span>
+					)}
+				</p>
 			</div>
 		</footer>
 

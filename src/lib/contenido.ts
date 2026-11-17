@@ -37,14 +37,27 @@ function imagen(ref: ImagenJson | undefined, origen: string): Imagen | null {
 	return { src: modulo.default, alt: ref.alt };
 }
 
+/** Iniciales de nombre y apellido, para cuando todavía no hay foto. */
+function iniciales(nombre: string) {
+	const partes = nombre.trim().split(/\s+/);
+	const primera = partes[0]?.charAt(0) ?? "";
+	const ultima = partes.length > 1 ? partes[partes.length - 1].charAt(0) : "";
+	return (primera + ultima).toUpperCase();
+}
+
 export const sitio = {
 	...sitioJson,
 	logo: imagen(sitioJson.logo, "sitio.json (logo)"),
+	horarios: {
+		...sitioJson.horarios,
+		imagen: imagen(sitioJson.horarios.imagen, "sitio.json (horarios)"),
+	},
 	hero: {
 		...sitioJson.hero,
+		// `foco`: qué parte de la foto se prioriza al recortarla (object-position).
 		imagenes: sitioJson.hero.imagenes.flatMap((img) => {
 			const resuelta = imagen(img, "sitio.json (hero)");
-			return resuelta ? [resuelta] : [];
+			return resuelta ? [{ ...resuelta, foco: img.foco ?? "center" }] : [];
 		}),
 	},
 };
@@ -57,12 +70,17 @@ export const tutores = (
 		email?: string;
 		foto?: ImagenJson;
 	}[]
-).map((t) => ({ ...t, foto: imagen(t.foto, `tutores.json (${t.nombre})`) }));
+).map((t) => ({
+	...t,
+	iniciales: iniciales(t.nombre),
+	foto: imagen(t.foto, `tutores.json (${t.nombre})`),
+}));
 
 export const coordinadores = (
 	coordinadoresJson as { id: string; nombre: string; foto?: ImagenJson }[]
 ).map((c) => ({
 	...c,
+	iniciales: iniciales(c.nombre),
 	foto: imagen(c.foto, `coordinadores.json (${c.nombre})`),
 }));
 

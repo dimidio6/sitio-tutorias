@@ -1,22 +1,37 @@
 [
 	{
+		"id": "que-hace-un-tutor",
+		"pregunta": "¿Qué hace un tutor?",
+		"respuesta": "Te acompaña en tu paso por la facultad: te escucha, te aconseja y te ayuda a organizarte cuando algo se complica. No da clases particulares; es un estudiante avanzado que ya pasó por lo mismo que vos."
+	},
+	{
 		"id": "costo-tutorias",
 		"pregunta": "¿Las tutorías tienen costo?",
-		"respuesta": "No, son totalmente gratuitas para todos los alumnos de la Facultad."
-	},
-	{
-		"id": "donde-son-las-reuniones",
-		"pregunta": "¿Dónde son las reuniones?",
-		"respuesta": "Pueden ser presenciales en el Gabinete de Tutorías o virtuales vía Meet."
-	},
-	{
-		"id": "como-solicitar-una-tutoria",
-		"pregunta": "¿Cómo solicito una tutoría?",
-		"respuesta": "Completá el formulario de contacto y el equipo de tutorías se comunicará con vos para coordinar un encuentro."
+		"respuesta": "No, son totalmente gratuitas para todos los estudiantes de la Facultad."
 	},
 	{
 		"id": "quienes-pueden-participar",
 		"pregunta": "¿Quiénes pueden participar?",
-		"respuesta": "Todos los estudiantes de la Facultad de Ingeniería pueden solicitar acompañamiento académico."
+		"respuesta": "Todos los estudiantes de la Facultad de Ingeniería, de cualquier carrera y año."
+	},
+	{
+		"id": "donde-son-las-reuniones",
+		"pregunta": "¿Dónde los encuentro?",
+		"respuesta": "En la oficina de tutorías del Edificio Central, 1° piso, frente al CEFI, en el horario de cada tutor."
+	},
+	{
+		"id": "como-solicitar-una-tutoria",
+		"pregunta": "¿Cómo solicito una tutoría?",
+		"respuesta": "Completá el formulario de contacto y el equipo de tutorías se comunica con vos para coordinar un encuentro."
+	},
+	{
+		"id": "saber-que-preguntar",
+		"pregunta": "¿Tengo que saber exactamente qué preguntar?",
+		"respuesta": "No. Podés escribirnos aunque sea solo para contarnos cómo te está yendo; a partir de ahí vemos juntos cómo seguir."
+	},
+	{
+		"id": "carrera-sin-tutor",
+		"pregunta": "¿Y si mi carrera no tiene tutor?",
+		"respuesta": "Escribinos igual: tu consulta le llega al equipo de tutorías, que te va a orientar."
 	}
 ]
