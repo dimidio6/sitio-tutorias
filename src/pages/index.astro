@@ -1,0 +1,485 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import {
+	carreras,
+	coordinadores,
+	faqs,
+	sitio,
+	tutores,
+} from "../lib/contenido";
+
+const { hero, contacto } = sitio;
+const slides = hero.imagenes;
+---
+
+<Base
+	title={sitio.titulo}
+	description={hero.subtitulo}
+	image={slides[0]?.src.src}
+>
+	<section id="inicio" class="hero-shell">
+		<div class="hero">
+			<div class="hero-content">
+				{hero.etiqueta && (
+					<p class="eyebrow">
+						{hero.etiqueta}
+					</p>
+				)}
+				<h1>{hero.titulo}</h1>
+				<p class="hero-subtitle">
+					{hero.subtitulo}
+				</p>
+				<div class="hero-actions">
+					<a class="btn" href={hero.boton.url}>
+						<span>
+							{hero.boton.texto}
+						</span>
+						<span class="btn-arrow" aria-hidden="true">
+							→
+						</span>
+					</a>
+					<span class="hero-note">Tutorías gratuitas</span>
+				</div>
+			</div>
+
+			<div class="hero-image">
+				{slides.length > 0 ? (
+					<div class="slider-container">
+						<div
+							class="hero-slider"
+							aria-roledescription="carrusel"
+							aria-label="Fotos de la Facultad de Ingeniería"
+						>
+							{slides.map((slide, index) => (
+								<div
+									class:list={["slide", { active: index === 0 }]}
+									role="group"
+									aria-roledescription="diapositiva"
+									aria-label={`${index + 1} de ${slides.length}`}
+									aria-hidden={index === 0 ? "false" : "true"}
+								>
+									<Image
+										src={slide.src}
+										alt={
+											slide.alt || "Facultad de Ingeniería - UNPSJB"
+										}
+										priority={index === 0}
+										loading={index === 0 ? "eager" : "lazy"}
+									/>
+								</div>
+							))}
+						</div>
+
+						{slides.length > 1 && (
+							<div
+								class="slider-dots"
+								role="tablist"
+								aria-label="Seleccionar imagen"
+							>
+								{slides.map((_, index) => (
+									<button
+										type="button"
+										data-slide={index}
+										aria-label={`Ir a la imagen ${index + 1}`}
+										aria-current={index === 0 ? "true" : "false"}
+									/>
+								))}
+							</div>
+						)}
+					</div>
+				) : null}
+			</div>
+		</div>
+	</section>
+
+	<section id="nosotros" class="section about">
+		<div class="container">
+			<div class="section-heading">
+				<h2>{sitio.tutores.titulo}</h2>
+				{sitio.tutores.subtitulo && (
+					<p class="subtitle">
+						{sitio.tutores.subtitulo}
+					</p>
+				)}
+			</div>
+
+			{tutores.length > 0 ? (
+				<div class="tutores-grid">
+					{tutores.map((tutor) => (
+						<article class="tutor-card">
+							<div class="tutor-img-container">
+								{tutor.foto ? (
+									<Image
+										src={tutor.foto.src}
+										alt={
+											tutor.foto.alt ||
+											`Foto de ${tutor.nombre}`
+										}
+										width={256}
+										height={256}
+										loading="lazy"
+									/>
+								) : (
+									<span class="tutor-initials" aria-hidden="true">
+										{tutor.nombre.charAt(0)}
+									</span>
+								)}
+							</div>
+							<h3>{tutor.nombre}</h3>
+							<span class="carrera">
+								{tutor.carrera}
+							</span>
+						</article>
+					))}
+				</div>
+			) : (
+				<p class="tutor-empty">
+					Todavía no hay tutores cargados. Podés agregarlos desde el panel
+					de administración.
+				</p>
+			)}
+		</div>
+	</section>
+
+	<section id="coordinadores" class="section coordinadores">
+		<div class="container">
+			<div class="section-heading">
+				<h2>
+					{sitio.coordinadores.titulo}
+				</h2>
+				{sitio.coordinadores.subtitulo && (
+					<p class="subtitle">
+						{sitio.coordinadores.subtitulo}
+					</p>
+				)}
+			</div>
+
+			{coordinadores.length > 0 ? (
+				<div class="tutores-grid coordinadores-grid">
+					{coordinadores.map((coordinator) => (
+						<article class="tutor-card coordinador-card">
+							<div class="tutor-img-container">
+								{coordinator.foto ? (
+									<Image
+										src={coordinator.foto.src}
+										alt={
+											coordinator.foto.alt ||
+											`Foto de ${coordinator.nombre}`
+										}
+										width={256}
+										height={256}
+										loading="lazy"
+									/>
+								) : (
+									<span class="tutor-initials" aria-hidden="true">
+										{coordinator.nombre.charAt(0)}
+									</span>
+								)}
+							</div>
+							<h3>{coordinator.nombre}</h3>
+						</article>
+					))}
+				</div>
+			) : (
+				<p class="tutor-empty">
+					Todavía no hay coordinadores cargados. Podés agregarlos desde
+					el panel de administración.
+				</p>
+			)}
+		</div>
+	</section>
+
+	<section id="info" class="section faq">
+		<div class="container">
+			<div class="section-heading">
+				<h2>{sitio.faq.titulo}</h2>
+				{sitio.faq.subtitulo && (
+					<p class="subtitle">
+						{sitio.faq.subtitulo}
+					</p>
+				)}
+			</div>
+
+			{faqs.length > 0 ? (
+				<div class="faq-container">
+					{faqs.map((faq) => (
+						<article class="faq-item">
+							<h3>{faq.pregunta}</h3>
+							<p>{faq.respuesta}</p>
+						</article>
+					))}
+				</div>
+			) : (
+				<p class="tutor-empty">
+					Todavía no hay preguntas frecuentes cargadas.
+				</p>
+			)}
+		</div>
+	</section>
+
+	<section id="contacto" class="section contact">
+		<div class="container">
+			<div class="section-heading">
+				<h2>{contacto.titulo}</h2>
+				{contacto.subtitulo && (
+					<p class="subtitle">
+						{contacto.subtitulo}
+					</p>
+				)}
+			</div>
+
+			<div class="contact-container">
+				<div class="contact-form-card">
+					<form
+						id="contact-form"
+						data-email={contacto.email}
+					>
+						<div class="form-grid">
+							<div class="field">
+								<label for="nombre">Nombre completo</label>
+								<input
+									id="nombre"
+									name="nombre"
+									type="text"
+									autocomplete="name"
+									placeholder="Tu nombre y apellido"
+									required
+								/>
+							</div>
+
+							<div class="field">
+								<label for="email">Correo institucional</label>
+								<input
+									id="email"
+									name="email"
+									type="email"
+									autocomplete="email"
+									placeholder="nombre@unp.edu.ar"
+									required
+								/>
+							</div>
+
+							<div class="field field-full">
+								<label for="carrera">Carrera</label>
+								<select id="carrera" name="carrera" required>
+									<option value="">Seleccioná tu carrera</option>
+									{carreras.map((career) => (
+										<option value={career}>{career}</option>
+									))}
+									<option value="Otra / No estoy seguro">
+										Otra / No estoy seguro
+									</option>
+								</select>
+							</div>
+
+							<div class="field field-full">
+								<label for="mensaje">¿En qué podemos ayudarte?</label>
+								<textarea
+									id="mensaje"
+									name="mensaje"
+									rows="5"
+									placeholder="Contanos qué materia o tema necesitás reforzar..."
+									required
+								></textarea>
+							</div>
+						</div>
+
+						<div class="form-actions">
+							<button type="submit" class="btn">
+								<span>{contacto.boton}</span>
+								<span class="btn-arrow" aria-hidden="true">
+									→
+								</span>
+							</button>
+							{contacto.nota && (
+								<p class="form-note">{contacto.nota}</p>
+							)}
+						</div>
+					</form>
+				</div>
+
+				<aside class="contact-info-card" aria-label="Datos de contacto">
+					<h3>Datos de contacto</h3>
+					<ul class="info-list">
+						{contacto.ubicacion && (
+							<li class="info-item">
+								<span class="info-icon" aria-hidden="true">
+									<svg
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<path d="M12 21s7-5.686 7-11a7 7 0 1 0-14 0c0 5.314 7 11 7 11Z" />
+										<circle cx="12" cy="10" r="2.5" />
+									</svg>
+								</span>
+								<div>
+									<strong>Ubicación</strong>
+									<span>
+										{contacto.ubicacion}
+									</span>
+								</div>
+							</li>
+						)}
+
+						{contacto.horarios && (
+							<li class="info-item">
+								<span class="info-icon" aria-hidden="true">
+									<svg
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<circle cx="12" cy="12" r="9" />
+										<path d="M12 7v5l3 2" />
+									</svg>
+								</span>
+								<div>
+									<strong>Horarios</strong>
+									<span>
+										{contacto.horarios}
+									</span>
+								</div>
+							</li>
+						)}
+
+						{contacto.email && (
+							<li class="info-item">
+								<span class="info-icon" aria-hidden="true">
+									<svg
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<rect x="3" y="5" width="18" height="14" rx="2" />
+										<path d="m3 7 9 6 9-6" />
+									</svg>
+								</span>
+								<div>
+									<strong>Email</strong>
+									<a
+										href={`mailto:${contacto.email}`}
+									>
+										{contacto.email}
+									</a>
+								</div>
+							</li>
+						)}
+					</ul>
+				</aside>
+			</div>
+		</div>
+	</section>
+
+	<script>
+		const slider =
+			document.querySelector<HTMLElement>(".hero-slider");
+
+		if (slider) {
+			const slides = Array.from(
+				slider.querySelectorAll<HTMLElement>(".slide"),
+			);
+			const dots = Array.from(
+				document.querySelectorAll<HTMLButtonElement>(
+					".slider-dots button",
+				),
+			);
+			let current = 0;
+			let timer: number | undefined;
+
+			const show = (index: number) => {
+				if (slides.length === 0) return;
+				current = (index + slides.length) % slides.length;
+
+				slides.forEach((slide, slideIndex) => {
+					const active = slideIndex === current;
+					slide.classList.toggle("active", active);
+					slide.setAttribute("aria-hidden", String(!active));
+				});
+
+				dots.forEach((dot, dotIndex) => {
+					dot.setAttribute(
+						"aria-current",
+						dotIndex === current ? "true" : "false",
+					);
+				});
+			};
+
+			const stop = () => {
+				if (timer !== undefined) window.clearInterval(timer);
+				timer = undefined;
+			};
+
+			const start = () => {
+				stop();
+				if (
+					slides.length > 1 &&
+					!window.matchMedia("(prefers-reduced-motion: reduce)").matches
+				) {
+					timer = window.setInterval(
+						() => show(current + 1),
+						5000,
+					);
+				}
+			};
+
+			dots.forEach((dot) => {
+				dot.addEventListener("click", () => {
+					show(Number(dot.dataset.slide));
+					start();
+				});
+			});
+
+			slider.addEventListener("mouseenter", stop);
+			slider.addEventListener("mouseleave", start);
+			slider.addEventListener("focusin", stop);
+			slider.addEventListener("focusout", start);
+			start();
+		}
+
+		const contactForm =
+			document.querySelector<HTMLFormElement>("#contact-form");
+
+		contactForm?.addEventListener("submit", (event) => {
+			event.preventDefault();
+
+			const email = contactForm.dataset.email?.trim();
+			if (!email) {
+				window.alert(
+					"El correo de contacto todavía no está configurado.",
+				);
+				return;
+			}
+
+			const data = new FormData(contactForm);
+			const nombre = String(data.get("nombre") ?? "");
+			const correo = String(data.get("email") ?? "");
+			const carrera = String(data.get("carrera") ?? "");
+			const mensaje = String(data.get("mensaje") ?? "");
+
+			const subject = `Consulta de tutoría — ${nombre}`;
+			const body = [
+				`Nombre: ${nombre}`,
+				`Correo: ${correo}`,
+				`Carrera: ${carrera}`,
+				"",
+				"Mensaje:",
+				mensaje,
+			].join("\n");
+
+			window.location.href = `mailto:${email}?subject=${encodeURIComponent(
+				subject,
+			)}&body=${encodeURIComponent(body)}`;
+		});
+	</script>
+</Base>

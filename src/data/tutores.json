@@ -1,0 +1,47 @@
+[
+	{
+		"id": "agustin",
+		"nombre": "Agustín Prudencio",
+		"carrera": "Ingeniería Electrónica"
+	},
+	{
+		"id": "alan-palacios",
+		"nombre": "Alan Palacios",
+		"carrera": "Ingeniería Industrial"
+	},
+	{
+		"id": "angelo-duarte",
+		"nombre": "Angelo Duarte",
+		"carrera": "Licenciatura en Informática"
+	},
+	{
+		"id": "baltazar-romero-delgado",
+		"nombre": "Baltazar Romero Delgado",
+		"carrera": "Ingeniería Mecánica"
+	},
+	{
+		"id": "bruno-ferreyra",
+		"nombre": "Bruno Ferreyra",
+		"carrera": "Licenciatura en Informática"
+	},
+	{
+		"id": "celina-nancuante",
+		"nombre": "Celina Nancuante",
+		"carrera": "Ingeniería Química"
+	},
+	{
+		"id": "david-laskowski",
+		"nombre": "David Laskowski",
+		"carrera": "Ingeniería Mecánica"
+	},
+	{
+		"id": "donato-pucciarelli",
+		"nombre": "Donato Pucciarelli",
+		"carrera": "Ingeniería Civil"
+	},
+	{
+		"id": "iara-alanes",
+		"nombre": "Iara Alanes",
+		"carrera": "Licenciatura en Matemática"
+	}
+]

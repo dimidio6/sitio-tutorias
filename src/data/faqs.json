@@ -1,0 +1,22 @@
+[
+	{
+		"id": "costo-tutorias",
+		"pregunta": "¿Las tutorías tienen costo?",
+		"respuesta": "No, son totalmente gratuitas para todos los alumnos de la Facultad."
+	},
+	{
+		"id": "donde-son-las-reuniones",
+		"pregunta": "¿Dónde son las reuniones?",
+		"respuesta": "Pueden ser presenciales en el Gabinete de Tutorías o virtuales vía Meet."
+	},
+	{
+		"id": "como-solicitar-una-tutoria",
+		"pregunta": "¿Cómo solicito una tutoría?",
+		"respuesta": "Completá el formulario de contacto y el equipo de tutorías se comunicará con vos para coordinar un encuentro."
+	},
+	{
+		"id": "quienes-pueden-participar",
+		"pregunta": "¿Quiénes pueden participar?",
+		"respuesta": "Todos los estudiantes de la Facultad de Ingeniería pueden solicitar acompañamiento académico."
+	}
+]

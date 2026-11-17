@@ -1,0 +1,68 @@
+{
+	"titulo": "Sistema de Tutorías",
+	"bajada": "Facultad de Ingeniería - UNPSJB",
+	"logo": {
+		"archivo": "logo-unpsjb.png",
+		"alt": "Universidad Nacional de la Patagonia San Juan Bosco"
+	},
+	"menu": [
+		{
+			"texto": "Inicio",
+			"url": "/#inicio"
+		},
+		{
+			"texto": "Nosotros",
+			"url": "/#nosotros"
+		},
+		{
+			"texto": "Coordinadores",
+			"url": "/#coordinadores"
+		},
+		{
+			"texto": "Información",
+			"url": "/#info"
+		},
+		{
+			"texto": "Contacto",
+			"url": "/#contacto",
+			"destacado": true
+		}
+	],
+	"hero": {
+		"etiqueta": "Facultad de Ingeniería · UNPSJB",
+		"titulo": "Apoyo Académico para Futuros Ingenieros",
+		"subtitulo": "Tu camino al éxito profesional empieza con una buena guía.",
+		"boton": {
+			"texto": "Solicitar Tutoría",
+			"url": "#contacto"
+		},
+		"imagenes": [
+			{
+				"archivo": "hero-1.jpg",
+				"alt": "Estudiantes de la Facultad de Ingeniería"
+			}
+		]
+	},
+	"tutores": {
+		"titulo": "Nuestros Tutores",
+		"subtitulo": "Estudiantes avanzados listos para acompañarte"
+	},
+	"coordinadores": {
+		"titulo": "Coordinadores",
+		"subtitulo": "Quiénes acompañan el sistema"
+	},
+	"faq": {
+		"titulo": "Preguntas Frecuentes",
+		"subtitulo": "Todo lo que necesitás saber antes de tu primera tutoría"
+	},
+	"contacto": {
+		"titulo": "Contacto",
+		"subtitulo": "Escribinos y coordinamos una tutoría.",
+		"ubicacion": "Edificio Central, Planta Baja - Oficina 12",
+		"horarios": "Lunes a Viernes 08:00 - 20:00",
+		"email": "tutorias@ingenieria.edu",
+		"nota": "Se abrirá tu cliente de correo para enviar la consulta. También podés escribirnos directamente al correo institucional.",
+		"boton": "Enviar Mensaje"
+	},
+	"pie": "Facultad de Ingeniería - UNPSJB · Sistema de Tutorías"
+}
