@@ -19,7 +19,7 @@ Todo el contenido está en `src/data/`:
 | Archivo | Contenido |
 | --- | --- |
 | `sitio.json` | Título, menú, textos del hero y de cada sección, datos de contacto y pie |
-| `tutores.json` | Nombre y carrera de cada tutor, en el orden en que se muestran |
+| `tutores.json` | Nombre, carrera y correo de cada tutor, en el orden en que se muestran |
 | `coordinadores.json` | Nombre y foto de cada coordinador |
 | `faqs.json` | Preguntas frecuentes, en el orden en que se muestran |
 
@@ -36,12 +36,16 @@ Las imágenes van en `src/assets/` y se referencian por su ruta dentro de esa ca
 
 Sin `foto` se muestra la inicial del nombre. Si un `archivo` no existe, el build falla indicando cuál falta.
 
+## Formulario de contacto
+
+Al enviarlo se abre el programa de correo del visitante con el mensaje armado. Los destinatarios son el correo de `contacto.email` (en `sitio.json`) más el `email` de cada tutor de la carrera elegida. Un tutor con `"email": ""` no recibe copia. Tené en cuenta que los correos cargados quedan visibles en el código de la página.
+
+## Tema claro y oscuro
+
+El interruptor del encabezado cambia el tema y recuerda la elección en ese navegador. Sin elección previa se usa el tema del sistema. Los colores de cada tema están al principio de `src/styles/site.css`.
+
 ## Publicar
 
 1. Definí `site` en `astro.config.mjs` con la dirección definitiva.
 2. Si el sitio va a vivir en una subcarpeta (por ejemplo `/tutorias/`), definí también `base` y ajustá los enlaces del menú en `sitio.json`.
 3. Ejecutá `npm run build` y subí el contenido de `dist/`.
-
-## Pendiente
-
-- El formulario de contacto abre el programa de correo del visitante; no envía mensajes por sí mismo.

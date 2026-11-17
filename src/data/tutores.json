@@ -2,46 +2,55 @@
 	{
 		"id": "agustin",
 		"nombre": "Agustín Prudencio",
-		"carrera": "Ingeniería Electrónica"
+		"carrera": "Ingeniería Electrónica",
+		"email": ""
 	},
 	{
 		"id": "alan-palacios",
 		"nombre": "Alan Palacios",
-		"carrera": "Ingeniería Industrial"
+		"carrera": "Ingeniería Industrial",
+		"email": ""
 	},
 	{
 		"id": "angelo-duarte",
 		"nombre": "Angelo Duarte",
-		"carrera": "Licenciatura en Informática"
+		"carrera": "Licenciatura en Informática",
+		"email": "angelo.duarte058@gmail.com"
 	},
 	{
 		"id": "baltazar-romero-delgado",
 		"nombre": "Baltazar Romero Delgado",
-		"carrera": "Ingeniería Mecánica"
+		"carrera": "Ingeniería Mecánica",
+		"email": ""
 	},
 	{
 		"id": "bruno-ferreyra",
 		"nombre": "Bruno Ferreyra",
-		"carrera": "Licenciatura en Informática"
+		"carrera": "Licenciatura en Informática",
+		"email": ""
 	},
 	{
 		"id": "celina-nancuante",
 		"nombre": "Celina Nancuante",
-		"carrera": "Ingeniería Química"
+		"carrera": "Ingeniería Química",
+		"email": ""
 	},
 	{
 		"id": "david-laskowski",
 		"nombre": "David Laskowski",
-		"carrera": "Ingeniería Mecánica"
+		"carrera": "Ingeniería Mecánica",
+		"email": ""
 	},
 	{
 		"id": "donato-pucciarelli",
 		"nombre": "Donato Pucciarelli",
-		"carrera": "Ingeniería Civil"
+		"carrera": "Ingeniería Civil",
+		"email": ""
 	},
 	{
 		"id": "iara-alanes",
 		"nombre": "Iara Alanes",
-		"carrera": "Licenciatura en Matemática"
+		"carrera": "Licenciatura en Matemática",
+		"email": ""
 	}
 ]

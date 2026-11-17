@@ -4,6 +4,7 @@ import Base from "../layouts/Base.astro";
 import {
 	carreras,
 	coordinadores,
+	correosPorCarrera,
 	faqs,
 	sitio,
 	tutores,
@@ -11,6 +12,20 @@ import {
 
 const { hero, contacto } = sitio;
 const slides = hero.imagenes;
+
+// Reparte los tutores en filas parejas (como máximo 5 por fila) para que en
+// pantallas anchas nunca quede uno solo en la última: 9 → 4 + 5, 11 → 3 + 4 + 4.
+const MAX_POR_FILA = 5;
+const cantFilas = Math.ceil(tutores.length / MAX_POR_FILA);
+const base = Math.floor(tutores.length / (cantFilas || 1));
+const filasConExtra = tutores.length % (cantFilas || 1);
+const filasTutores: (typeof tutores)[] = [];
+for (let fila = 0, desde = 0; fila < cantFilas; fila++) {
+	const largo = base + (fila >= cantFilas - filasConExtra ? 1 : 0);
+	filasTutores.push(tutores.slice(desde, desde + largo));
+	desde += largo;
+}
+const porFila = Math.max(0, ...filasTutores.map((fila) => fila.length));
 ---
 
 <Base
@@ -105,22 +120,24 @@ const slides = hero.imagenes;
 			</div>
 
 			{tutores.length > 0 ? (
-				<div class="tutores-grid">
-					{tutores.map((tutor) => (
-						<article class="tutor-card">
-							<div class="tutor-img-container">
-								{tutor.foto ? (
-									<Image
-										src={tutor.foto.src}
-										alt={
-											tutor.foto.alt ||
-											`Foto de ${tutor.nombre}`
-										}
-										width={256}
-										height={256}
-										loading="lazy"
-									/>
-								) : (
+				<div class="tutores-grid tutores-filas" style={`--por-fila: ${porFila}`}>
+					{filasTutores.map((fila) => (
+						<div class="tutores-fila">
+						{fila.map((tutor) => (
+							<article class="tutor-card">
+								<div class="tutor-img-container">
+									{tutor.foto ? (
+										<Image
+											src={tutor.foto.src}
+											alt={
+												tutor.foto.alt ||
+												`Foto de ${tutor.nombre}`
+											}
+											width={256}
+											height={256}
+											loading="lazy"
+										/>
+									) : (
 									<span class="tutor-initials" aria-hidden="true">
 										{tutor.nombre.charAt(0)}
 									</span>
@@ -131,12 +148,13 @@ const slides = hero.imagenes;
 								{tutor.carrera}
 							</span>
 						</article>
+						))}
+						</div>
 					))}
 				</div>
 			) : (
 				<p class="tutor-empty">
-					Todavía no hay tutores cargados. Podés agregarlos desde el panel
-					de administración.
+					Todavía no hay tutores cargados.
 				</p>
 			)}
 		</div>
@@ -183,8 +201,7 @@ const slides = hero.imagenes;
 				</div>
 			) : (
 				<p class="tutor-empty">
-					Todavía no hay coordinadores cargados. Podés agregarlos desde
-					el panel de administración.
+					Todavía no hay coordinadores cargados.
 				</p>
 			)}
 		</div>
@@ -205,6 +222,20 @@ const slides = hero.imagenes;
 				<div class="faq-container">
 					{faqs.map((faq) => (
 						<article class="faq-item">
+							<span class="faq-icono" aria-hidden="true">
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12Z" />
+									<path d="M10.2 9.6a1.9 1.9 0 0 1 3.7.6c0 1.3-1.9 1.7-1.9 3" />
+									<path d="M12 15.9h.01" />
+								</svg>
+							</span>
 							<h3>{faq.pregunta}</h3>
 							<p>{faq.respuesta}</p>
 						</article>
@@ -234,6 +265,8 @@ const slides = hero.imagenes;
 					<form
 						id="contact-form"
 						data-email={contacto.email}
+						data-tutores={JSON.stringify(correosPorCarrera)}
+						novalidate
 					>
 						<div class="form-grid">
 							<div class="field">
@@ -322,6 +355,9 @@ const slides = hero.imagenes;
 									<span>
 										{contacto.ubicacion}
 									</span>
+									{contacto.ciudad && (
+										<span class="info-detalle">{contacto.ciudad}</span>
+									)}
 								</div>
 							</li>
 						)}
@@ -450,8 +486,76 @@ const slides = hero.imagenes;
 		const contactForm =
 			document.querySelector<HTMLFormElement>("#contact-form");
 
+		type Campo = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+		// Mensajes propios: los del navegador salen en el idioma del navegador.
+		const mensajeDeError = (campo: Campo) => {
+			const valor = campo.value.trim();
+			switch (campo.name) {
+				case "nombre":
+					return valor ? "" : "Escribí tu nombre y apellido.";
+				case "email":
+					if (!valor) return "Escribí tu correo.";
+					return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor)
+						? ""
+						: "Ese correo no parece válido. Revisalo.";
+				case "carrera":
+					return valor ? "" : "Elegí tu carrera.";
+				case "mensaje":
+					return valor ? "" : "Contanos en qué podemos ayudarte.";
+				default:
+					return "";
+			}
+		};
+
+		const validar = (campo: Campo) => {
+			const mensaje = mensajeDeError(campo);
+			const idError = `error-${campo.id}`;
+			let aviso = document.getElementById(idError);
+
+			if (!mensaje) {
+				aviso?.remove();
+				campo.removeAttribute("aria-invalid");
+				campo.removeAttribute("aria-describedby");
+				return true;
+			}
+
+			if (!aviso) {
+				aviso = document.createElement("p");
+				aviso.id = idError;
+				aviso.className = "field-error";
+				aviso.setAttribute("role", "alert");
+				campo.insertAdjacentElement("afterend", aviso);
+			}
+			aviso.textContent = mensaje;
+			campo.setAttribute("aria-invalid", "true");
+			campo.setAttribute("aria-describedby", idError);
+			return false;
+		};
+
+		const campos = contactForm
+			? Array.from(
+					contactForm.querySelectorAll<Campo>("input, select, textarea"),
+				)
+			: [];
+
+		// Una vez marcado un error, se corrige apenas la persona lo arregla.
+		campos.forEach((campo) => {
+			const revisar = () => {
+				if (campo.hasAttribute("aria-invalid")) validar(campo);
+			};
+			campo.addEventListener("input", revisar);
+			campo.addEventListener("change", revisar);
+		});
+
 		contactForm?.addEventListener("submit", (event) => {
 			event.preventDefault();
+
+			const invalidos = campos.filter((campo) => !validar(campo));
+			if (invalidos.length > 0) {
+				invalidos[0].focus();
+				return;
+			}
 
 			const email = contactForm.dataset.email?.trim();
 			if (!email) {
@@ -462,10 +566,18 @@ const slides = hero.imagenes;
 			}
 
 			const data = new FormData(contactForm);
-			const nombre = String(data.get("nombre") ?? "");
-			const correo = String(data.get("email") ?? "");
+			const nombre = String(data.get("nombre") ?? "").trim();
+			const correo = String(data.get("email") ?? "").trim();
 			const carrera = String(data.get("carrera") ?? "");
-			const mensaje = String(data.get("mensaje") ?? "");
+			const mensaje = String(data.get("mensaje") ?? "").trim();
+
+			// Destinatarios: el correo de tutorías más los tutores de esa carrera.
+			const tutoresPorCarrera: Record<string, string[]> = JSON.parse(
+				contactForm.dataset.tutores ?? "{}",
+			);
+			const destinatarios = [
+				...new Set([email, ...(tutoresPorCarrera[carrera] ?? [])]),
+			];
 
 			const subject = `Consulta de tutoría — ${nombre}`;
 			const body = [
@@ -475,9 +587,20 @@ const slides = hero.imagenes;
 				"",
 				"Mensaje:",
 				mensaje,
+				// Para que el resto de los destinatarios vea que la consulta ya
+				// se respondió: el aviso solo tiene sentido si hay varios.
+				...(destinatarios.length > 1
+					? [
+							"",
+							"—",
+							"Equipo de tutorías: respondan con «Responder a todos» para que el resto sepa que esta consulta ya fue atendida.",
+						]
+					: []),
 			].join("\n");
 
-			window.location.href = `mailto:${email}?subject=${encodeURIComponent(
+			window.location.href = `mailto:${destinatarios.join(
+				",",
+			)}?subject=${encodeURIComponent(
 				subject,
 			)}&body=${encodeURIComponent(body)}`;
 		});

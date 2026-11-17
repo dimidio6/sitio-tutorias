@@ -2,7 +2,7 @@
 	"titulo": "Sistema de Tutorías",
 	"bajada": "Facultad de Ingeniería - UNPSJB",
 	"logo": {
-		"archivo": "logo-unpsjb.png",
+		"archivo": "logo-unpsjb2.png",
 		"alt": "Universidad Nacional de la Patagonia San Juan Bosco"
 	},
 	"menu": [
@@ -29,8 +29,8 @@
 		}
 	],
 	"hero": {
-		"etiqueta": "Facultad de Ingeniería · UNPSJB",
-		"titulo": "Apoyo Académico para Futuros Ingenieros",
+		"etiqueta": "Facultad de Ingeniería · Sede Comodoro Rivadavia",
+		"titulo": "Apoyo Académico para Futuros Profesionales",
 		"subtitulo": "Tu camino al éxito profesional empieza con una buena guía.",
 		"boton": {
 			"texto": "Solicitar Tutoría",
@@ -40,6 +40,14 @@
 			{
 				"archivo": "hero-1.jpg",
 				"alt": "Estudiantes de la Facultad de Ingeniería"
+			},
+			{
+				"archivo": "uni-entrada.jpg",
+				"alt": "Entrada al edificio de la universidad"
+			},
+			{
+				"archivo": "uni-lejos.jpg",
+				"alt": "Vista aérea del campus universitario"
 			}
 		]
 	},
@@ -49,7 +57,7 @@
 	},
 	"coordinadores": {
 		"titulo": "Coordinadores",
-		"subtitulo": "Quiénes acompañan el sistema"
+		"subtitulo": "Quiénes dirigen el Sistema de Tutorías"
 	},
 	"faq": {
 		"titulo": "Preguntas Frecuentes",
@@ -58,11 +66,12 @@
 	"contacto": {
 		"titulo": "Contacto",
 		"subtitulo": "Escribinos y coordinamos una tutoría.",
-		"ubicacion": "Edificio Central, Planta Baja - Oficina 12",
+		"ubicacion": "Edificio Central, 1° piso, frente al CEFI",
+		"ciudad": "Sede Comodoro Rivadavia, Chubut",
 		"horarios": "Lunes a Viernes 08:00 - 20:00",
 		"email": "tutorias@ingenieria.edu",
 		"nota": "Se abrirá tu cliente de correo para enviar la consulta. También podés escribirnos directamente al correo institucional.",
 		"boton": "Enviar Mensaje"
 	},
-	"pie": "Facultad de Ingeniería - UNPSJB · Sistema de Tutorías"
+	"pie": "Facultad de Ingeniería - UNPSJB · Sede Comodoro Rivadavia · Sistema de Tutorías"
 }

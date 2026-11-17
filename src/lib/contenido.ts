@@ -50,7 +50,13 @@ export const sitio = {
 };
 
 export const tutores = (
-	tutoresJson as { id: string; nombre: string; carrera: string; foto?: ImagenJson }[]
+	tutoresJson as {
+		id: string;
+		nombre: string;
+		carrera: string;
+		email?: string;
+		foto?: ImagenJson;
+	}[]
 ).map((t) => ({ ...t, foto: imagen(t.foto, `tutores.json (${t.nombre})`) }));
 
 export const coordinadores = (
@@ -66,3 +72,14 @@ export const faqs = faqsJson;
 export const carreras = [...new Set(tutores.map((t) => t.carrera))].sort(
 	(a, b) => a.localeCompare(b, "es"),
 );
+
+/**
+ * Correos de los tutores de cada carrera. El formulario de contacto los suma
+ * como destinatarios según la carrera elegida. Los tutores sin `email` cargado
+ * en tutores.json no aparecen.
+ */
+export const correosPorCarrera: Record<string, string[]> = {};
+for (const tutor of tutores) {
+	const email = tutor.email?.trim();
+	if (email) (correosPorCarrera[tutor.carrera] ??= []).push(email);
+}
